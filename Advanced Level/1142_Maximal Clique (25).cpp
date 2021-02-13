@@ -43,9 +43,6 @@ int main(){
                     printf("Not Maximal\n");
                     break;
                 }
-                else{
-                    ans=1;
-                }
             }
             if(ans) printf("Yes\n");
         }
