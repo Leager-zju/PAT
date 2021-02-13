@@ -1,6 +1,6 @@
+#include<vector>
 #include<unordered_map>
 #include<cstdio>
-#include<vector>
 using namespace std;
 
 unordered_map<int,int> repo;
