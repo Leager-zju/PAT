@@ -1,15 +1,13 @@
 #include<vector>
-#include<algorithm>
 #include<cstdio>
 using namespace std;
 #define maxn 10010
 #define inf 10e7
 
-vector<int> graph[maxn];
-int G[maxn][maxn]={0};
+vector<int> graph[maxn],path,temppath;
+int G[maxn][maxn];
 bool visit[maxn]={false};
 int mintran;
-vector<int> path,temppath;
 
 void makepath(int start,int end){
     if(temppath.size()>path.size() && path.size()!=0) return;
@@ -17,17 +15,12 @@ void makepath(int start,int end){
         int count=0;
         bool transfer[101]={false};
         for(int i=0;i<temppath.size()-1;i++){
-            if(transfer[G[temppath[i]][temppath[i+1]]]){
-                continue;
+            if(!transfer[G[temppath[i]][temppath[i+1]]]){
+                transfer[G[temppath[i]][temppath[i+1]]]=true;
+                count++;
             }
-            transfer[G[temppath[i]][temppath[i+1]]]=true;
-            count++;
         }
-        if(path.size()==0){
-            path=temppath;
-            mintran=count;
-        }
-        else if(temppath.size()<path.size() || ( temppath.size()==path.size() && mintran>count )){
+        if(path.size()==0 || temppath.size()<path.size() || ( temppath.size()==path.size() && mintran>count )){
             path=temppath;
             mintran=count;
         }
@@ -35,12 +28,13 @@ void makepath(int start,int end){
     }
     for(int i=0;i<graph[start].size();i++){
         int u=graph[start][i];
-        if(visit[u]) continue;
-        temppath.push_back(u);
-        visit[u]=true;
-        makepath(u,end);
-        visit[u]=false;
-        temppath.pop_back();
+        if(!visit[u]){
+            temppath.push_back(u);
+            visit[u]=true;
+            makepath(u,end);
+            visit[u]=false;
+            temppath.pop_back();
+        }
     }
 }
 
