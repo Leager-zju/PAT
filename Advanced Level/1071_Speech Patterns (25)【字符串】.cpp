@@ -1,12 +1,11 @@
 #include<map>
+#include<string>
 #include<cstdio>
-#include<iostream>
 using namespace std;
-
-map<string,int> list;
 
 int main(){
     string word,ans;
+    map<string,int> list;
     char c;
     int maxtime=0;
     while(1){
