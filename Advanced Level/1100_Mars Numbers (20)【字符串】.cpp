@@ -25,12 +25,8 @@ int main(){
             for(j=0;j<temp.length();j++){
                 num=num*10+(temp[j]-'0');
             }
-            if(num==0){
-                cout<<z<<endl;
-            }
-            else if(num<13){
-                cout<<d1[num-1]<<endl;
-            }
+            if(num==0) cout<<z<<endl;
+            else if(num<13) cout<<d1[num-1]<<endl;
             else{
                 cout<<d2[num/13-1];
                 if(num%13) cout<<" "<<d1[num%13-1];
