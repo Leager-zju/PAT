@@ -1,0 +1,41 @@
+#include<string>
+#include<vector>
+#include<algorithm>
+#include<iostream>
+#include<cstdio>
+using namespace std;
+
+struct info{
+    string name;
+    int age,worth;
+};
+
+bool cmp(info &a,info &b){
+    if(a.worth!=b.worth) return a.worth>b.worth;
+    else if(a.age!=b.age) return a.age<b.age;
+    else return a.name<b.name;
+}
+
+int main(){
+    int n,m,i,j,k;
+    int low,high;
+    scanf("%d %d",&n,&m);
+    vector<info> list(n);
+    for(i=0;i<n;i++){
+        cin>>list[i].name;
+        scanf("%d %d",&list[i].age,&list[i].worth);
+    }
+    sort(list.begin(),list.end(),cmp);
+    for(i=1;i<=m;i++){
+        int cnt=1;
+        scanf("%d %d %d",&k,&low,&high);
+        printf("Case #%d:\n",i);
+        for(j=0;j<n && cnt<=k;j++){
+            if(list[j].age>=low && list[j].age<=high){
+                printf("%s %d %d\n",list[j].name.c_str(),list[j].age,list[j].worth);
+                cnt++;
+            }
+        }
+        if(cnt==1) printf("None\n");
+    }
+}
