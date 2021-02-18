@@ -4,16 +4,15 @@ using namespace std;
 
 string renew(string s){
     string ans;
-    int i,j,count;
+    int i,j;
     for(i=0;i<s.length();i++){
-        count=0;
         for(j=i;j<s.length();j++){
             if(s[j]!=s[i]) break;
             count++;
         }
+        ans+=s[j-1];
+        ans+=(j-i+'0');
         i=j-1;
-        ans+=s[i];
-        ans+=(count+'0');
     }
     return ans;
 }
