@@ -14,18 +14,13 @@ struct node{
     }
 };
 void insert(node *&root,int x){
-    if(root==NULL){
-        root=new node(x);
-        return;
-    }
-    if(abs(x)<=abs(root->data)) insert(root->left,x);
+    if(root==NULL) root=new node(x);
+    else if(abs(x)<=abs(root->data)) insert(root->left,x);
     else insert(root->right,x);
 }
 int getNum(node *root){
     if(root==NULL) return 1;
-    int l=getNum(root->left);
-    int r=getNum(root->right);
-    return max(l,r)+root->tag;
+    else return max(getNum(root->left),getNum(root->right))+root->tag;
 }
 bool isRBT(node *root){
     if(root==NULL) return true;
@@ -33,9 +28,7 @@ bool isRBT(node *root){
         if(root->left!=NULL && root->left->tag==0) return false;
         if(root->right!=NULL && root->right->tag==0) return false;
     }
-    int l=getNum(root->left);
-    int r=getNum(root->right);
-    if(l!=r) return false;
+    if(getNum(root->left)!=getNum(root->right)) return false;
     else return ( isRBT(root->left) && isRBT(root->right) );
 }
 int main(){
