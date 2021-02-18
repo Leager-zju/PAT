@@ -16,11 +16,14 @@ int main(){
     cin>>k;
     while(k--){
         int color[n];
-        int flag=0;
+        int flag=0,cnt=0;
         unordered_map<int,bool> vis;
         for(i=0;i<n;i++){
             cin>>color[i];
-            vis[color[i]]=true;
+            if(!vis[color[i]]){
+                vis[color[i]]=true;
+                cnt++;
+            }
         }
         for(i=0;i<n;i++){
             if(flag) break;
@@ -33,9 +36,6 @@ int main(){
             }
         }
         if(flag) cout<<"No"<<endl;
-        else{
-            flag=vis.size();
-            cout<<flag<<"-coloring"<<endl;
-        }
+        else cout<<cnt<<"-coloring"<<endl;
     }
 }
