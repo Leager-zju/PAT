@@ -6,8 +6,7 @@ using namespace std;
 bool isPalindrome(string s){
     string temp=s;
     reverse(s.begin(),s.end());
-    if(temp==s) return true;
-    else return false;
+    return (temp==s);
 }
 
 string AplusB(string a,string b){
@@ -22,9 +21,7 @@ string AplusB(string a,string b){
             flag=1;
             sum-=10;
         }
-        else{
-            flag=0;
-        }
+        else flag=0;
         char now=sum+'0';
         ans.push_back(now);
     }
