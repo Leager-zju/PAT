@@ -3,7 +3,6 @@
 using namespace std;
 
 bool ischild[25]={false};
-string ans;
 int root;
 struct node{
     string data;
