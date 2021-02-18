@@ -20,7 +20,7 @@ void makepath(int start,int end){
                 count++;
             }
         }
-        if(path.size()==0 || temppath.size()<path.size() || ( temppath.size()==path.size() && mintran>count )){
+        if(path.size()==0 || temppath.size()<path.size() || (temppath.size()==path.size() && mintran>count)){
             path=temppath;
             mintran=count;
         }
