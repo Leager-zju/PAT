@@ -7,7 +7,7 @@ int main(){
     scanf("%d %d",&n,&m);
     vector<int> check[100010];
     while(n--){
-        scanf("%d%d",&u,&v);
+        scanf("%d %d",&u,&v);
         check[u].push_back(v);
         check[v].push_back(u);
     }
