@@ -11,7 +11,7 @@ struct node{
 }tree[25];
 
 void inorder(int v){
-    if(v!= 1){
+    if(v!=1){
         if(v!=root && (tree[v].left!=-1 || tree[v].right!=-1)) cout<<"(";
         inorder(tree[v].left);
         cout<<tree[v].data;
