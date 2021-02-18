@@ -1,25 +1,25 @@
 #include<vector>
-#include<unordered_map>
+#include<unordered_set>
 #include<iostream>
 using namespace std;
 
 int main(){
     int m,n,i,j;
     int num,u,v;
+    unordered_set<int> vis;
+    vector<int> pre;
     cin>>m>>n;
-    
-    vector<int> pre(n);
-    unordered_map<int,bool> have;   // 树中是否有某个结点
+    pre.resize(n);
     
     for(i=0;i<n;i++){
         cin>>pre[i];
-        have[pre[i]]=true;
+        vis.insert(pre[i]);
     }
     while(m--){
         cin>>u>>v;
-        if(have.find(u)==have.end() && have.find(v)==have.end()) cout<<"ERROR: "<<u<<" and "<<v<<" are not found."<<endl;
-        else if(have.find(u)==have.end()) cout<<"ERROR: "<<u<<" is not found."<<endl;
-        else if(have.find(v)==have.end()) cout<<"ERROR: "<<v<<" is not found."<<endl;
+        if(vis.find(u)==vis.end() && vis.find(v)==vis.end()) cout<<"ERROR: "<<u<<" and "<<v<<" are not found."<<endl;
+        else if(vis.find(u)==vis.end()) cout<<"ERROR: "<<u<<" is not found."<<endl;
+        else if(vis.find(v)==vis.end()) cout<<"ERROR: "<<v<<" is not found."<<endl;
         else{
             for(i=0;i<n;i++){
                 if( (pre[i]<u&&pre[i]>v) || (pre[i]>u&&pre[i]<v) || pre[i]==u || pre[i]==v ) break;
