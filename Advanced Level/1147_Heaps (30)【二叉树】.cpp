@@ -9,7 +9,7 @@ void postorder(int root){
         postorder(root*2);
         postorder(root*2+1);
         printf("%d",list[root]);
-        if(i==1) printf("\n");
+        if(root==1) printf("\n");
         else printf(" ");
     }
 }
