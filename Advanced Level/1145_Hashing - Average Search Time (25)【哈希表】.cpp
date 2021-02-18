@@ -20,7 +20,6 @@ int main(){
     }
     
     int hash[tsize]={0};
-    // 插入
     while(n--){
         cin>>num;
         for(i=0;i<tsize;i++){
@@ -32,10 +31,9 @@ int main(){
         }
         if(i==tsize) cout<<num<<" cannot be inserted."<<endl;
     }
-    // 查找
     for(i=0;i<m;i++){
         cin>>num;
-        for(j=0;j<=tsize;j++){      // 这里的查找递归次数存疑,j=tsize和j=0其实是一样的下标
+        for(j=0;j<=tsize;j++){
             totaltime++;
             int p=(num+j*j)%tsize;
             if(hash[p]==0 || hash[p]==num) break;
