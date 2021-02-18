@@ -21,10 +21,7 @@ int main(){
         b=z.substr(len/2,len-len/2);
         A=strtonum(a);
         B=strtonum(b);
-        if(A==0 || B==0) cout<<"No"<<endl;        // 特殊情况 0不能被除
-        else{
-            if(strtonum(z)%(A*B)==0) cout<<"Yes"<<endl;
-            else cout<<"No"<<endl;
-        }
+        if(A!=0 && B!=0 && strtonum(z)%(A*B)==0) cout<<"Yes"<<endl;
+        else cout<<"No"<<endl;
     }
 }
