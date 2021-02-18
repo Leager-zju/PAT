@@ -1,20 +1,17 @@
 #include<unordered_map>
-#include<iostream>
+#include<cstdio>
 using namespace std;
 
 int main(){
-    int n,num,i,maxnum=-1;
-    unordered_map<int,bool> mp;
-    cin>>n;
+    int n,num,i,temp=1;
+    unordered_map<int,int> mp;
+    scanf("%d",&n);
     for(i=0;i<n;i++){
-        cin>>num;
-        if(num>0){
-            mp[num]=true;
-            maxnum=max(maxnum,num);
+        scanf("%d",&num);
+        if(num>0) mp[num]=1;
+        while(mp[temp]){
+            temp++;
         }
     }
-    for(i=1;i<=maxnum;i++){
-        if(mp[i]!=true) break;
-    }
-    cout<<i;
+    printf("%d",temp);
 }
