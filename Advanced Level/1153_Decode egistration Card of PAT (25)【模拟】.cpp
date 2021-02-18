@@ -62,8 +62,9 @@ int main(){
                     num[card[i].id.substr(1,3)]++;
                 }
             }
-            // 下面这部分是本题巧妙之处
-            for(auto it : num) rank.push_back({it.first,it.second});
+            for(auto it : num){
+                rank.push_back({it.first,it.second});
+            }
             if(rank.size()==0) printf("NA\n");
             else{
                 sort(rank.begin(),rank.end(),cmp);
