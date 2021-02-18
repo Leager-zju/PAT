@@ -1,11 +1,10 @@
 #include<string>
 #include<iostream>
-#include<cmath>
 using namespace std;
 
 bool isprime(long long n){
     if(n==0||n==1) return false;
-    for(int i=2;i<=sqrt(n);i++){
+    for(int i=2;i*i<=n;i++){
         if(n%i==0) return false;
     }
     return true;
@@ -20,15 +19,17 @@ long long str_int(string s){
 }
 
 int main(){
-    int L,k,i=0;
+    int L,k;
     string s,subnum;
     cin>>L>>k;
     cin>>s;
-    subnum=s.substr(i,k);
-    while(!isprime(str_int(subnum)) && i<=L-k){
-        i++;
+    for(i=0;i<=L-k;i++){
         subnum=s.substr(i,k);
+        if(isprime(str_int(subnum))){
+            cout<<subnum<<endl;
+            return 0;
+        }
     }
-    if(i<=L-k) cout<<subnum<<endl;
-    else cout<<"404"<<endl;
+    cout<<"404"<<endl;
+    return 0;
 }
