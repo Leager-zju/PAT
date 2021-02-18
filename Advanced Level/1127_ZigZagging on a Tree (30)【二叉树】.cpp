@@ -1,4 +1,4 @@
-#include<iostream>
+#include<cstdio>
 #include<algorithm>
 #include<vector>
 using namespace std;
@@ -6,10 +6,7 @@ using namespace std;
 struct node{
     node *left=NULL,*right=NULL;
     int data,floor;
-    node(int x,int y){
-        data=x;
-        floor=y;
-    }
+    node(int x,int y): data(x),floor(y) {}
 };
 int in[32],post[32];
 
@@ -41,18 +38,15 @@ vector<node*> zigzag(node *root){
 
 int main(){
     int n,i,j;
-
-    cin>>n;
+    scanf("%d",&n);
     for(i=0;i<n;i++){
-        cin>>in[i];
+        scanf("%d",&in[i]);
     }
     for(i=0;i<n;i++){
-        cin>>post[i];
+        scanf("%d",&post[i]);
     }
-
     node* root=maketree(0,n-1,0,n-1,0);
     vector<node*> list=zigzag(root);
-
     i=0;
     while(i<list.size()){
         j=i+1;
@@ -64,9 +58,8 @@ int main(){
         }
         i=j;
     }
-
     for(i=0;i<list.size();i++){
-        if(i!=0) cout<<" ";
-        cout<<list[i]->data;
+        if(i!=0) printf(" ");
+        printf("%d",list[i]->data);
     }
 }
