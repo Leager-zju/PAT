@@ -27,9 +27,9 @@ int main(){
                 i=repo[pre[j]];
                 if( (i==repo[u]) || (i==repo[v]) || (i<=repo[u]&&i>=repo[v]) || (i<=repo[v]&&i>=repo[u]) ) break;
             }
-            if(i==repo[u]) printf("%d is an ancestor of %d.\n",u,v);
+            if(i==repo[u])      printf("%d is an ancestor of %d.\n",u,v);
             else if(i==repo[v]) printf("%d is an ancestor of %d.\n",v,u);
-            else printf("LCA of %d and %d is %d.\n",u,v,pre[j]);
+            else                printf("LCA of %d and %d is %d.\n",u,v,pre[j]);
         }
     }
 }
