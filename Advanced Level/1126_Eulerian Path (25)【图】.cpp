@@ -1,42 +1,41 @@
-#include<iostream>
+#include<cstdio>
+#include<vector>
 using namespace std;
 
-int graph[520][520]={0};
+vector<int> graph[520];
 bool visited[520]={false};
+int degree[520]={0};
 
-void DFS(int start,int v){
+void DFS(int start){
     visited[start]=true;
-    for(int i=1;i<=v;i++){
-        if(graph[start][i]==1 && !visited[i]){
-            DFS(i,v);
-        }
+    for(int i=0;i<graph[start].size();i++){
+        if(!visited[graph[start][i]]) DFS(graph[start][i]);
     }
 }
 
 int main(){
     int v,e,i,start,end;
     int oddcount=0;
-    int flag=0;
-    cin>>v>>e;
-    int degree[520]={0};
+    scanf("%d %d",&v,&e);
     while(e--){
-        cin>>start>>end;
-        graph[start][end]=graph[end][start]=1;
+        scanf("%d %d",&start,&end);
+        graph[start].push_back(end);
+        graph[end].push_back(start);
         degree[start]++;
         degree[end]++;
     }
     for(i=1;i<=v;i++){
-        if(i!=1) cout<<" ";
-        cout<<degree[i];
+        if(i!=1) printf(" ");
+        printf("%d",degree[i]);
         if(degree[i]%2) oddcount++;
     }
-    DFS(1,v);
+    printf("\n");
+    
+    DFS(1);
     for(i=1;i<=v;i++){
-        if(visited[i]==false) break;
+        if(!visited[i]) break;
     }
-    if(i==v+1) flag=1;
-    cout<<endl;
-    if(flag==1 && oddcount==0) cout<<"Eulerian";
-    else if(flag==1 && oddcount==2) cout<<"Semi-Eulerian";
-    else cout<<"Non-Eulerian";
+    if(i==v+1 && oddcount==0) printf("Eulerian");
+    else if(i==v+1 && oddcount==2) printf("Semi-Eulerian");
+    else printf("Non-Eulerian");
 }
