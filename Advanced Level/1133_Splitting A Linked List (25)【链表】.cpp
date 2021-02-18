@@ -10,7 +10,7 @@ struct info{
 int main(){
     int head,n,k;
     int adr,i;
-    vector<info> neg,less,greater;      // 负数，0~k，k~∞
+    vector<info> neg,less,greater;
     scanf("%d %d %d",&head,&n,&k);
     while(n--){
         scanf("%d",&adr);
