@@ -19,14 +19,15 @@ int main(){
         for(j=0;j<n;j++){
             cin>>u;
             if(flag) continue;
-            if(temp[u]!=0) flag=1;
-            else{
-                for(k=0;k<next[u].size();k++){
-                    temp[next[u][k]]--;
-                }
+            if(temp[u]!=0){
+                flag=1;
+                ans.push_back(i);
+                continue;
             }
-        }
-        if(flag) ans.push_back(i);
+            for(k=0;k<next[u].size();k++){
+                temp[next[u][k]]--;
+            }
+        } 
     }
     for(i=0;i<ans.size();i++){
         if(i!=0) cout<<" ";
