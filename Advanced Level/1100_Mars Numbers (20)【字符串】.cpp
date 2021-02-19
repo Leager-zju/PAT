@@ -1,5 +1,5 @@
 #include<string>
-#include<map>
+#include<unordered_map>
 #include<iostream>
 using namespace std;
 
@@ -10,7 +10,7 @@ string d2[12]={"tam", "hel", "maa", "huh", "tou", "kes", "hei", "elo", "syy", "l
 int main(){
     int i,j,n,num,flag=1;
     string temp;
-    map<string,int> m;
+    unordered_map<string,int> m;
     cin>>n;
     getchar();
     for(i=0;i<12;i++){
