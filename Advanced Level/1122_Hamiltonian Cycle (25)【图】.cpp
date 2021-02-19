@@ -20,12 +20,10 @@ int main(){
         for(i=0;i<k;i++){
             scanf("%d",&path[i]);
         }
-
         if(k<=v || path[0]!=path[k-1]){
             printf("NO\n");
             continue;
         }
-        
         for(i=0;i<k-1;i++){
             if(pass[path[i]]==true || !graph[path[i]][path[i+1]]) break;
             else pass[path[i]]=true;
