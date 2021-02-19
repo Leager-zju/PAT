@@ -16,12 +16,8 @@ int isCBT(int root,int n){
     while(!Q.empty()){
         top=Q.front();
         Q.pop();
-        if(count<=(n-1)/2 && (top.left==-1 || top.right==-1)){
-            flag=1;
-        }
-        else if(count==n/2 && n%2==0 && (top.left==-1 || top.right!=-1)){
-            flag=1;
-        }
+        if(count<=(n-1)/2 && (top.left==-1 || top.right==-1)) flag=1;
+        if(count==n/2 && n%2==0 && (top.left==-1 || top.right!=-1)) flag=1;
         if(top.left!=-1) Q.push(tree[top.left]);
         if(top.right!=-1) Q.push(tree[top.right]);
         count++;
@@ -67,7 +63,6 @@ int main(){
             break;
         }
     }
-    
     flag=isCBT(root,n);
     if(flag!=-1) printf("YES %d",flag);
     else printf("NO %d",root);
