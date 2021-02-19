@@ -1,32 +1,28 @@
 #include<cstdio>
-#include<map>
+#include<set>
 using namespace std;
 
-int getFriendNumber(int x){
+int getfriendnumber(int n){
     int ans=0;
-    while(x){
-        ans+=x%10;
-        x/=10;
+    while(n){
+        ans+=n%10;
+        n/=10;
     }
     return ans;
 }
 
 int main(){
-    int n,i,count=0;
-    int id,friendnum;
-    map<int,int> list;
+    int n,num;
+    set<int> friendnumber;
+    
     scanf("%d",&n);
-    for(i=0;i<n;i++){
-        scanf("%d",&id);
-        friendnum=getFriendNumber(id);
-        if(list.find(friendnum)==list.end()){
-            list[friendnum]=1;
-            count++;
-        }
+    while(n--){
+        scanf("%d",&num);
+        friendnumber.insert(getfriendnumber(num));
     }
-    printf("%d\n",count);
-    for(auto it=list.begin();it!=list.end();it++){
-        if(it!=list.begin()) printf(" ");
-        printf("%d",it->first);
+    printf("%d\n",(int)friendnumber.size());
+    for(auto it=friendnumber.begin();it!=friendnumber.end();it++){
+        if(it!=friendnumber.begin()) printf(" ");
+        printf("%d",*it);
     }
 }
