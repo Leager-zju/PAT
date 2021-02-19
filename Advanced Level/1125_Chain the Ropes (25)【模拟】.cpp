@@ -1,14 +1,14 @@
 #include<queue>
-#include<iostream>
+#include<cstdio>
 using namespace std;
 
 int main(){
     priority_queue<double,vector<double>,greater<double>> Q;
     int n,i;
     double temp,a,b;
-    cin>>n;
+    scanf("%d",&n);
     for(i=0;i<n;i++){
-        cin>>temp;
+        scanf("%lf",temp);
         Q.push(temp);
     }
     while(Q.size()!=1){
