@@ -3,29 +3,27 @@
 #include<cstdio>
 using namespace std;
 #define inf 10e7
+#define maxn 520
 
 struct info{
     int arrive,distance,t;
 };
 
-int dis[520];              // 单源最短路程
-int time[520];             // 单源最短时间
-bool visited[520];
-vector<info> graph[520];
-vector<int> temppath,shortestpath,fastestpath,dispre[520],timepre[520];
-
+int dis[maxn],time[maxn],dispre[maxn];
+bool visited[maxn];
+vector<info> graph[maxn];
+vector<int> temppath,shortestpath,fastestpath,timepre[maxn];
 
 void findshortestpath(int s,int n){
     fill(dis,dis+n,inf);
     fill(time,time+n,inf);
     fill(visited,visited+n,false);
-    
     dis[s]=time[s]=0;
     int u,v,min,i,j;
     for(i=0;i<n;i++){
         u=-1,min=inf;
         for(j=0;j<n;j++){
-            if(visited[j]==false && dis[j]<min){
+            if(!visited[j] && dis[j]<min){
                 min=dis[j];
                 u=j;
             }
@@ -37,15 +35,11 @@ void findshortestpath(int s,int n){
             if(dis[u]+graph[u][j].distance<dis[v]){
                 dis[v]=dis[u]+graph[u][j].distance;
                 time[v]=time[u]+graph[u][j].t;
-                dispre[v].clear();
-                dispre[v].push_back(u);
+                dispre[v]=u;
             }
-            else if(dis[u]+graph[u][j].distance==dis[v]){
-                if(time[u]+graph[u][j].t<time[v]){
-                    time[v]=time[u]+graph[u][j].t;
-                    dispre[v].clear();
-                    dispre[v].push_back(u);
-                }
+            else if(dis[u]+graph[u][j].distance==dis[v] && time[u]+graph[u][j].t<time[v]){
+                time[v]=time[u]+graph[u][j].t;
+                dispre[v]=u;
             }
         }
     }
@@ -55,51 +49,41 @@ void findfastestpath(int s,int n){
     fill(dis,dis+n,inf);
     fill(time,time+n,inf);
     fill(visited,visited+n,false);
-    
     dis[s]=time[s]=0;
-    int u,v,min;
-    for(int i=0;i<n;i++){
+    int i,j,u,v,min;
+    for(i=0;i<n;i++){
         u=-1,min=inf;
         for(int j=0;j<n;j++){
-            if(visited[j]==false && time[j]<min){
+            if(!visited[j] && time[j]<min){
                 min=time[j];
                 u=j;
             }
         }
         if(u==-1) return;
         visited[u]=true;
-        for(int j=0;j<graph[u].size();j++){
+        for(j=0;j<graph[u].size();j++){
             v=graph[u][j].arrive;
             if(time[u]+graph[u][j].t<time[v]){
                 time[v]=time[u]+graph[u][j].t;
                 timepre[v].clear();
                 timepre[v].push_back(u);
-                
             }
-            else if(time[u]+graph[u][j].t==time[v]){
-                timepre[v].push_back(u);
-            }
+            else if(time[u]+graph[u][j].t==time[v]) timepre[v].push_back(u);
         }
     }
 }
 
 void dispath(int u,int v){
-    if(u==v){
-        shortestpath=temppath;
-        return;
+    while(u!=v){
+        shortestpath.push_back(u);
+        u=dispre[u];
     }
-    for(int i=0;i<dispre[u].size();i++){
-        temppath.push_back(dispre[u][i]);
-        dispath(dispre[u][i],v);
-        temppath.pop_back();
-    }
+    shortestpath.push_back(v);
 }
 
 void timepath(int u,int v){
     if(u==v){
-        if(fastestpath.size()==0 || temppath.size()<fastestpath.size()){
-            fastestpath=temppath;
-        }
+        if(fastestpath.size()==0 || temppath.size()<fastestpath.size()) fastestpath=temppath;
         return;
     }
     for(int i=0;i<timepre[u].size();i++){
@@ -135,12 +119,10 @@ int main(){
     
     findshortestpath(start,n);
     u=dis[end];
-    temppath.push_back(end);
     dispath(end,start);
     
     findfastestpath(start,n);
     v=time[end];
-    temppath.clear();
     temppath.push_back(end);
     timepath(end,start);
     
