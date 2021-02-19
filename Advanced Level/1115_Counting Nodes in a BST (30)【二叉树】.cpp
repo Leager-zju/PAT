@@ -8,9 +8,7 @@ int maxfloor=0;
 struct node{
     node *left=NULL,*right=NULL;
     int data;
-    node(int x){
-        data=x;
-    }
+    node(int x): data(x) {}
 };
 void maketree(node *&root,int x,int y){
     if(root==NULL){
@@ -23,17 +21,13 @@ void maketree(node *&root,int x,int y){
 }
 
 int main(){
-    int n,i;
-    int temp;
+    int n,i,temp;
     node *root=NULL;
-    
     scanf("%d",&n);
-
     for(i=0;i<n;i++){
         scanf("%d",&temp);
         maketree(root,temp,0);
     }
-
-    if(maxfloor==0) printf("%d + 0 = %d",floor[maxfloor],floor[maxfloor]);
-    else printf("%d + %d = %d",floor[maxfloor],floor[maxfloor-1],floor[maxfloor]+floor[maxfloor-1]);
+    if(maxfloor) printf("%d + %d = %d",floor[maxfloor],floor[maxfloor-1],floor[maxfloor]+floor[maxfloor-1]);
+    else printf("%d + 0 = %d",floor[maxfloor],floor[maxfloor]);
 }
