@@ -1,23 +1,19 @@
-#include<queue>
+#include<vector>
+#include<algorithm>
 #include<cstdio>
 using namespace std;
 
 int main(){
-    priority_queue<double,vector<double>,greater<double>> Q;
-    int n,i;
-    double temp,a,b;
+    int n,i,ans;
     scanf("%d",&n);
+    vector<int> list(n);
     for(i=0;i<n;i++){
-        scanf("%lf",temp);
-        Q.push(temp);
+        scanf("%d",&list[i]);
     }
-    while(Q.size()!=1){
-        a=Q.top();
-        Q.pop();
-        b=Q.top();
-        Q.pop();
-        Q.push(1.0*(a+b)/2);
+    sort(list.begin(),list.end());
+    ans=list[0];
+    for(i=1;i<n;i++){
+        ans=(ans+list[i])/2;
     }
-    temp=Q.top();
-    printf("%d",(int)temp);
+    printf("%d",ans);
 }
