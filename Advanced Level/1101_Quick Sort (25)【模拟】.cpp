@@ -1,36 +1,32 @@
-#include<iostream>
-#include<vector>
-using namespace std;
+#include<cstdio>
 
 int main(){
-    int lmax=-1,rmin=10e9+1;
+    int lmax=-1,rmin=10e9+1,count=0,flag=1;
     int n,i;
-    cin>>n;
-    vector<int> list(n),pivot;
-    bool ispivot[n];
+    scanf("%d",&n);
+    int list[n];
+    bool ispivot[n]={false};
     
     for(i=0;i<n;i++){
-        cin>>list[i];
+        scanf("%d",&list[i]);
+        if(list[i]>lmax){
+            lmax=list[i];
+            ispivot[i]=true;
+        }
     }
     for(i=n-1;i>=0;i--){
         if(list[i]<rmin){
             rmin=list[i];
-            ispivot[i]=true;
+            if(ispivot[i]) count++;
         }
         else ispivot[i]=false;
     }
+    printf("%d\n",count);
     for(i=0;i<n;i++){
-        if(list[i]>lmax){
-            lmax=list[i];
-            if(!ispivot[i]) continue;
-            pivot.push_back(list[i]);
-        }
+        if(!ispivot[i]) continue;
+        if(flag) flag=0;
+        else printf(" ");
+        printf("%d",list[i]);
     }
-    i=pivot.size();
-    cout<<i<<endl;
-    for(i=0;i<pivot.size();i++){
-        cout<<pivot[i];
-        if(i!=pivot.size()-1) cout<<" ";
-    }
-    cout<<endl;
+    printf("\n");
 }
