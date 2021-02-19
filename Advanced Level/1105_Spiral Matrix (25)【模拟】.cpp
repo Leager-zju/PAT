@@ -11,7 +11,6 @@ int main(){
     int n,i,j,x,y,p=0;
     scanf("%d",&n);
     int list[n];
-    
     for(i=0;i<n;i++){
         scanf("%d",&list[i]);
     }
@@ -43,8 +42,6 @@ int main(){
             x1++,x2--;
             y1++,y2--;
         }
-
-        // output
         for(i=0;i<x;i++){
             for(j=0;j<y;j++){
                 if(j!=0) printf(" ");
