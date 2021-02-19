@@ -4,10 +4,11 @@ using namespace std;
 
 int main(){
     int n,i,m;
-    long int num[100010],sum1=0,sum2=0;
+    long int num[100010],sum1=0,sum=0;
     scanf("%d",&n);
     for(i=0;i<n;i++){
         scanf("%ld",&num[i]);
+        
     }
     sort(num,num+n);
     m=n/2;
