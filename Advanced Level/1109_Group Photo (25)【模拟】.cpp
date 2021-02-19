@@ -9,7 +9,7 @@ struct info{
     int height;
 }stu[10010];
 
-bool cmp(info a,info b){
+bool cmp(info &a,info &b){
     if(a.height!=b.height) return a.height>b.height;
     else return a.name<b.name;
 }
@@ -25,8 +25,7 @@ int main(){
     }
     sort(stu+1,stu+n+1,cmp);
 
-    flag=1;
-    start=1;
+    flag=start=1;
     end=n-rows*(k-1);
     for(i=((end%2==0)?end:end-1);i>=2;i-=2){
         if(flag) flag=0;
