@@ -18,4 +18,5 @@ int main(){
         if(mile[i]<=i) break;
     }
     printf("%d",i-1);
+    return 0;
 }
