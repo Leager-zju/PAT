@@ -1,20 +1,18 @@
-#include<map>
+#include<unordered_map>
 #include<cstdio>
-#include<cmath>
 using namespace std;
 
 bool isprime(int n){
-    if(n==1||n==0) return false;
-    for(int i=2;i<=sqrt(n);i++){
+    if(n==1) return false;
+    for(int i=2;i*i<=n;i++){
         if(n%i==0) return false;
     }
     return true;
 }
 
 int main(){
-    int n,m,i;
-    int id;
-    map<int,int> ranklist;
+    unordered_map<int,int> ranklist;
+    int n,m,i,id;
     scanf("%d",&n);
     for(i=1;i<=n;i++){
         scanf("%d",&id);
