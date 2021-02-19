@@ -1,8 +1,9 @@
 #include<cstdio>
 #include<algorithm>
 using namespace std;
+#define maxn 10010
 
-int father[10010];
+int father[maxn];
 int findfather(int x){
     int a=x;
     while(x!=father[x]){
@@ -23,33 +24,28 @@ void merge(int x,int y){
 
 int main(){
     int n,q,k;
-    int i,j,x,y;
-    int maxtag=0;
-
+    int i,j,x,y,maxtag=0,count=0;
+    bool flag[maxn]={false};
+    
     scanf("%d",&n);
-
-    for(i=1;i<=10000;i++){
+    for(i=1;i<maxn;i++){
         father[i]=i;
     }
     for(i=0;i<n;i++){
         scanf("%d",&k);
-        for(j=0;j<k;j++){
-            if(j==0){
-                scanf("%d",&x);
-                maxtag=max(maxtag,x);
-            }
-            else{
-                scanf("%d",&y);
-                merge(x,y);
-                maxtag=max(maxtag,y);
-            }
+        if(k!=0){
+            scanf("%d",&x);
+            maxtag=max(maxtag,x);
+        }
+        for(j=1;j<k;j++){
+            scanf("%d",&y);
+            merge(x,y);
+            maxtag=max(maxtag,y);
         }
     }
-    bool flag[10010]={false};
-    int count=0;
     for(i=1;i<=maxtag;i++){
         x=findfather(i);
-        if(flag[x]==false){
+        if(!flag[x]){
             flag[x]=true;
             count++;
         }
