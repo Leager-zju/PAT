@@ -12,8 +12,7 @@ vector<int> path;
 vector<node> tree;
 
 void DFS(int root,int sum){
-    if(sum>s) return;
-    else if(sum==s && tree[root].child.size()==0){
+    if(sum==s && tree[root].child.size()==0){
         for(int i=0;i<path.size();i++){
             if(i!=0) cout<<" ";
             cout<<path[i];
@@ -21,8 +20,9 @@ void DFS(int root,int sum){
         cout<<endl;
         return;
     }
-    for(int i=0;i<tree[root].child.size();i++){
+    for(int i=tree[root].child.size()-1;i>=0;i--){
         int u=tree[root].child[i];
+        if(sum+tree[u].data>s) continue;
         path.push_back(tree[u].data);
         DFS(u,sum+tree[u].data);
         path.pop_back();
@@ -30,7 +30,7 @@ void DFS(int root,int sum){
 }
 
 bool cmp(int a,int b){
-    return tree[a].data>tree[b].data;
+    return tree[a].data<tree[b].data;
 }
 
 int main(){
