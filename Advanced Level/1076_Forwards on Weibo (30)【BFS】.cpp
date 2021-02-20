@@ -1,56 +1,55 @@
 #include <queue>
-#include <iostream>
-#include <algorithm>
+#include <cstdio>
 #include <vector>
 using namespace std;
 #define maxn 1010
 
 int totalnum,maxforward;
-int follow[maxn][maxn]={0};
+vector<int> follower[maxn];
 
 struct node{
     int id,floor;
-}user[maxn];
+}user[maxn],temp;
 
-void visit(node post){
-    int forward=0;
-    bool isvisited[maxn]={false};
-    post.floor=0;
-    isvisited[post.id]=true;
+void visit(node temp){
+    bool visited[totalnum+1]={false};
+    visited[temp.id]=true;
+    temp.floor=0;
+    int i,ans=0;
+    
     queue<node> Q;
-    Q.push(post);
+    Q.push(temp);
     while(!Q.empty()){
-        node top=Q.front();
-        if(top.floor==maxforward) break;
+        temp=Q.front();
+        if(temp.floor==maxforward) break;
         Q.pop();
-        for(int i=1;i<=totalnum;i++){
-            if(isvisited[i]==false && follow[top.id][i]==1){
-                user[i].floor=top.floor+1;
-                Q.push(user[i]);
-                forward++;
-                isvisited[i]=true;
+        for(i=0;i<follower[temp.id].size();i++){
+            node u=user[follower[temp.id][i]];
+            if(!visited[u.id]){
+                u.floor=temp.floor+1;
+                ans++;
+                Q.push(u);
+                visited[u.id]=true;
             }
         }
     }
-    printf("%d\n",forward);
+    printf("%d\n",ans);
 }
 
 int main(){
-    cin>>totalnum>>maxforward;
-    for(int i=1;i<=totalnum;i++){
-        int num,j=0,in;
-        cin>>num;
+    int i,j,k,num;
+    scanf("%d %d",&totalnum,&maxforward);
+    for(i=1;i<=totalnum;i++){
+        scanf("%d",&k);
         user[i].id=i;
-        while(num--){
-            cin>>in;
-            follow[in][i]=1;
+        while(k--){
+            scanf("%d",&num);
+            follower[num].push_back(i);
         }
     }
-
-    int post,postnum;
-    cin>>postnum;
-    while(postnum--){
-        cin>>post;
-        visit(user[post]);
+    scanf("%d",&k);
+    while(k--){
+        scanf("%d",&num);
+        visit(user[num]);
     }
 }
