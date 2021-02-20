@@ -16,21 +16,18 @@ bool cmp(info &a,info &b){
 
 int main(){
     int n,k,m,i,rank=1;
+    int u_id,p_id,get_score;
     scanf("%d %d %d",&n,&k,&m);
     
     int score[k+1];
+    info list[n+1];
     for(i=1;i<=k;i++){
         scanf("%d",&score[i]);
     }
-    
-    info list[n+1];
-    int u_id,p_id,get_score;
-
     for(i=1;i<=n;i++){
         list[i].id=i;
         fill(list[i].get+1,list[i].get+k+1,-1);
     }
-
     for(i=0;i<m;i++){
         scanf("%d %d %d",&u_id,&p_id,&get_score);
         if(get_score==-1) get_score=0;
@@ -47,11 +44,9 @@ int main(){
     }
 
     sort(list+1,list+n+1,cmp);
-
     for(i=1;i<=n;i++){
         if(list[i].flag==false) break;
         if(i>1 && list[i].total!=list[i-1].total) rank=i;
-        
         printf("%d %05d %d",rank,list[i].id,list[i].total);
         for(int j=1;j<=k;j++){
             if(list[i].get[j]==-1) printf(" -");
