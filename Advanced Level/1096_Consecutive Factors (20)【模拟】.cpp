@@ -6,19 +6,18 @@ using namespace std;
 int main(){
     long long int num,q;
     vector<int> ans,temp;
-    int i,j,k;
+    int i,j,product;
     int maxlen=0,templen;
     
     cin>>num;
-    q=ceil(sqrt(num));
-    
+    q=sqrt(num)+1;
     for(i=2;i<=q;i++){
-        k=1;
+        product=1;
         templen=0;
         temp.clear();
         for(j=i;j<=q;j++){
-            k*=j;
-            if(num%k!=0) break;
+            product*=j;
+            if(num%product!=0) break;
             temp.push_back(j);
             templen++;
         }
