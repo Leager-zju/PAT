@@ -1,31 +1,27 @@
 #include<iostream>
 #include<map>
-#include<math.h>
 using namespace std;
 #define maxn 10000008
 
-long int num,n,pnum=0;
-map<long int,int> m;
-map<long int,int>::iterator it;
+long int num,n,pnum=0,p[maxn];
 bool prime[maxn]={false};
-long int p[maxn];
+map<long int,int> m;
 
 void initial(long int bound){
-    for(int i=2;i<=sqrt(bound);i++){
+    for(int i=2;i*i<=bound;i++){
         if(prime[i]==false){
-            for(int j=2*i;j<=sqrt(bound);j+=i) prime[j]=true;
+            for(int j=2*i;j*j<=bound;j+=i) prime[j]=true;
             p[pnum++]=i;
         }
     }
 }
 
 int main(){
+    int flag=1,i=0;
     cin>>num;
     n=num;
-    int flag=1,i=0;
     initial(num);
-    
-    while(i<=pnum-1&&num!=1){
+    while(i<pnum && num!=1){
         while(num%p[i]==0){
             m[p[i]]++;
             num/=p[i];
@@ -33,7 +29,7 @@ int main(){
         i++;
     }
     cout<<n<<"=";
-    for(it=m.begin();it!=m.end();it++){
+    for(auto it=m.begin();it!=m.end();it++){
         if(flag){
             flag=0;
             cout<<it->first;
