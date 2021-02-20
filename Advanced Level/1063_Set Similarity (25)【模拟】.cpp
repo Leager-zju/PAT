@@ -1,18 +1,17 @@
 #include<cstdio>
 #include<unordered_set>
-#include<algorithm>
 using namespace std;
 
 void compare(unordered_set<int> a,unordered_set<int> b){
     double nc=0,nt=(double)b.size(),similar;
     int num;
-    for(auto it=a.begin();it!=a.end();it++){
-        num=*it;
-        if(b.count(num)!=0) nc++;
+    for(auto it:a){
+        if(b.count(it)!=0) nc++;
         else nt++;
     }
     similar=nc/nt*100.0;
     printf("%.1f%%\n",similar);
+    return ;
 }
 
 int main(){
