@@ -4,38 +4,22 @@
 #include<iostream>
 using namespace std;
 
-vector<int> preorder,inorder;
+vector<int> pre,in;
 int first=1;
 
-struct node{
-    int data;
-    node *left,*right;
-};
-
-node* maketree(int prel,int prer,int inl,int inr){
-    if(prel>prer) return NULL;
-    node* temp=new node;
-    temp->data=preorder[prel];
-    int i;
-    for(i=inl;i<=inr;i++){
-        if(inorder[i]==preorder[prel]){
-            break;
-        }
+void maketree(int l1,int r1,int l2,int r2){
+    if(l1>r1) return ;
+    
+    int i,numofleft;
+    for(i=l2;i<=r2;i++){
+        if(in[i]==pre[l1]) break;
     }
-    int lsize=i-inl;  // 左子树结点数
-    temp->left=maketree(prel+1,prel+lsize,inl,i-1);
-    temp->right=maketree(prel+lsize+1,prer,i+1,inr);
-    return temp;
-}
-
-void postorder(node *root){
-    if(root!=NULL){
-        postorder(root->left);
-        postorder(root->right);
-        if(first) first=0;
-        else printf(" ");
-        printf("%d",root->data);
-    }
+    numofleft=i-l2;
+    maketree(l1+1,l1+numofleft,l2,i-1);
+    maketree(l1+numofleft+1,r1,i+1,r2);
+    if(first) first=0;
+    else cout<<" ";
+    cout<<pre[l1];
 }
 
 int main(){
@@ -48,14 +32,13 @@ int main(){
         cin>>op;
         if(op=="Push"){
             cin>>num;
-            preorder.push_back(num);
+            pre.push_back(num);
             tree.push(num);
         }
         else if(op=="Pop"){
-            inorder.push_back(tree.top());
+            in.push_back(tree.top());
             tree.pop();
         }
     }
-    node *root=maketree(0,n-1,0,n-1);
-    postorder(root);
+    maketree(0,n-1,0,n-1);
 }
