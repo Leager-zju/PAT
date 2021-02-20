@@ -3,15 +3,12 @@
 #include<stack>
 using namespace std;
 
-vector<int> v;
-int m,n,k;
-
-bool ispopseq(vector<int> v){
+bool ispopseq(vector<int> v,int n,int m){
     stack<int> s;
-    int maxnum=0;
-    for(int i=0;i<n;i++){
+    int maxnum=0,i,j;
+    for(i=0;i<n;i++){
         if(s.empty() || s.top()<v[i]){
-            for(int j=maxnum+1;j<=v[i];j++){
+            for(j=maxnum+1;j<=v[i];j++){
                 s.push(j);
             }
             int len=s.size();
@@ -26,14 +23,14 @@ bool ispopseq(vector<int> v){
 }
 
 int main(){
+    int m,n,k,i,j;
     scanf("%d %d %d",&m,&n,&k);
-    for(int i=0;i<k;i++){
-        v.resize(n);
-        for(int j=0;j<n;j++){
+    for(i=0;i<k;i++){
+        vector<int> v(n);
+        for(j=0;j<n;j++){
             scanf("%d",&v[j]);
         }
-        if(ispopseq(v)) printf("YES\n");
+        if(ispopseq(v,n,m)) printf("YES\n");
         else printf("NO\n");
-        v.clear();
     }
 }
