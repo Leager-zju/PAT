@@ -1,18 +1,17 @@
-#include<string>
+#include<string.h>
 #include<algorithm>
 #include<vector>
-#include<iostream>
-#include<cstdio>
 #include<map>
+#include<cstdio>
 using namespace std;
 
 struct info{
-    string id;
+    char id[7];
     int time,tag;
 }temp;
 
 bool cmp1(info &a,info &b){
-    if(a.id!=b.id) return a.id<b.id;
+    if(strcmp(a.id,b.id)!=0) return strcmp(a.id,b.id)<0;
     else return a.time<b.time;
 }
 
@@ -21,28 +20,27 @@ bool cmp2(info &a,info &b){
 }
 
 int main(){
-    int n,m,i,j,hh,mm,ss,maxtime=0;
-    string s;
-    vector<info> l,list;
+    int n,m,i,j;
+    int hh,mm,ss,maxtime=0;
+    char status[3];
+    vector<info> v,list;
     map<string,int> staytime;
     
     scanf("%d %d",&n,&m);
     for(i=0;i<n;i++){
-        cin>>temp.id;
-        scanf("%d:%d:%d",&hh,&mm,&ss);
+        scanf("%s %d:%d:%d %s",temp.id,&hh,&mm,&ss,status);
         temp.time=(hh*60+mm)*60+ss;
-        cin>>s;
-        temp.tag=(s=="in"?1:-1);
-        l.push_back(temp);
+        temp.tag=(strcmp(status,"in")==0?1:-1);
+        v.push_back(temp);
     }
     
-    sort(l.begin(),l.end(),cmp1);
+    sort(v.begin(),v.end(),cmp1);
     for(i=0;i<n-1;i++){
-        if(l[i].tag==1 && l[i+1].tag==-1 && l[i].id==l[i+1].id){
-            list.push_back(l[i]);
-            list.push_back(l[i+1]);
-            staytime[l[i].id]+=l[i+1].time-l[i].time;
-            maxtime=max(maxtime,staytime[l[i].id]);
+        if(v[i].tag==1 && v[i+1].tag==-1 && strcmp(v[i].id,v[i+1].id)==0){
+            list.push_back(v[i]);
+            list.push_back(v[i+1]);
+            staytime[v[i].id]+=v[i+1].time-v[i].time;
+            maxtime=maxtime>staytime[v[i].id]?maxtime:staytime[v[i].id];
             i++;
         }
     }
@@ -65,9 +63,9 @@ int main(){
     for(auto it=staytime.begin();it!=staytime.end();it++){
         if(it->second==maxtime) printf("%s ",it->first.c_str());
     }
+    
     hh=maxtime/3600;
     mm=maxtime/60%60;
     ss=maxtime%60;
     printf("%02d:%02d:%02d\n",hh,mm,ss);
-    
 }
