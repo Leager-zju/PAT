@@ -1,6 +1,3 @@
-// 我将字符串分为三部分：整数部分、小数部分、指数部分
-// 先将指数部分变为int型，根据正负来判断小数点左移还是右移
-// 左移补零，右移位数不够补零
 #include<string>
 #include<iostream>
 using namespace std;
