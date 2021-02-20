@@ -4,16 +4,16 @@ using namespace std;
 
 struct info{
     double num,price;
+    bool operator < (const info &a) const{
+        return price>a.price;
+    }
 };
-
-bool cmp(info &a,info &b){
-    return a.price>b.price;
-}
 
 int main(){
     int k,i;
     double req,profit;
     scanf("%d %lf",&k,&req);
+    
     info mk[k];
     for(i=0;i<k;i++){
         scanf("%lf",&mk[i].num);
@@ -22,7 +22,7 @@ int main(){
         scanf("%lf",&mk[i].price);
         mk[i].price/=mk[i].num;
     }
-    sort(mk,mk+k,cmp);
+    sort(mk,mk+k);
     i=0;
     while(req && i<k){
         if(req>mk[i].num){
@@ -35,5 +35,5 @@ int main(){
         }
         i++;
     }
-    printf("%.2f",profit);
+    printf("%.2f\n",profit);
 }
