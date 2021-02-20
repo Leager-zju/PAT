@@ -8,11 +8,11 @@ struct info{
     vector<int> prefer;
 };
 
-bool cmp(info a,info b){
+bool cmp(info &a,info &b){
     if(a.ge+a.gi!=b.ge+b.gi) return a.ge+a.gi>b.ge+b.gi;
     else return a.ge>b.ge;
 }
-bool cmp1(info a,info b){
+bool cmp1(info &a,info &b){
     return a.id<b.id;
 }
 
@@ -22,19 +22,19 @@ int main(){
     
     int quota[m];
     vector<info> ranklist,school[m];
-    info student[n+1],temp;
+    info temp,pre;
     
     for(i=0;i<m;i++){
         scanf("%d",&quota[i]);
     }
     for(i=0;i<n;i++){
-        scanf("%d %d",&student[i].ge,&student[i].gi);
-        student[i].prefer.resize(k);
-        student[i].id=i;
+        scanf("%d %d",&temp.ge,&temp.gi);
+        temp.prefer.resize(k);
+        temp.id=i;
         for(j=0;j<k;j++){
-            scanf("%d",&student[i].prefer[j]);
+            scanf("%d",&temp.prefer[j]);
         }
-        ranklist.push_back(student[i]);
+        ranklist.push_back(temp);
     }
     sort(ranklist.begin(),ranklist.end(),cmp);
     for(i=0;i<n;i++){
@@ -47,7 +47,7 @@ int main(){
                 break;
             }
             else{
-                info pre=student[school[p][len-1].id];
+                pre=school[p][len-1];
                 if(pre.ge==temp.ge && pre.gi==temp.gi){
                     school[p].push_back(temp);
                     break;
