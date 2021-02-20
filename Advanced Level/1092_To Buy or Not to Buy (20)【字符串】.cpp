@@ -5,15 +5,15 @@ using namespace std;
 
 int main(){
     string a,b;
-    unordered_map<char,int> A;
+    unordered_map<char,int> check;
     getline(cin,a);
     getline(cin,b);
     int i,count=0,lenA=a.length(),lenB=b.length();
     for(i=0;i<lenA;i++){
-        A[a[i]]++;
+        check[a[i]]++;
     }
     for(i=0;i<lenB;i++){
-        if(A[b[i]]>0) A[b[i]]--;
+        if(check[b[i]]>0) check[b[i]]--;
         else count++;
     }
     if(count==0) cout<<"Yes "<<lenA-lenB;
