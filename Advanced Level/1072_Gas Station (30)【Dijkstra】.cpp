@@ -27,7 +27,6 @@ void dijkstra(int x){
     fill(visited+1,visited+n+m+1,false);
     dis[x]=0;
     int i,j;
-
     for(i=1;i<=n+m+1;i++){
         int u=-1,min=INF;
         for(j=1;j<=n+m;j++){
@@ -60,23 +59,15 @@ void dijkstra(int x){
 
 int transform(string s){
     int ans=0,i;
-    if(s[0]=='G'){
-        for(i=1;i<s.length();i++){
-            ans=ans*10+(s[i]-'0');
-        }
-        ans+=n;
-    }
-    else{
-        for(i=0;i<s.length();i++){
-            ans=ans*10+(s[i]-'0');
-        }
+    if(s[0]=='G') return n+transform(s.substr(1));
+    for(i=0;i<s.length();i++){
+        ans=ans*10+(s[i]-'0');
     }
     return ans;
 }
 int main(){
     string start,end;
-    int u,v,i;
-    int ans=-1;
+    int u,v,i,ans=-1;
     double ans_min=0,ans_avr=INF;
     cin>>n>>m>>k>>ds;
     for(i=0;i<k;i++){
@@ -91,10 +82,8 @@ int main(){
     for(i=1;i<=m;i++){
         s[i].id="G"+to_string(i);
         dijkstra(i+n);
-    }
-    for(i=1;i<=m;i++){
         if(s[i].mind==INF) continue;
-        else if(s[i].mind>ans_min || (s[i].mind==ans_min && s[i].avdis<ans_avr)){
+        if(s[i].mind>ans_min || (s[i].mind==ans_min && s[i].avdis<ans_avr)){
             ans_min=s[i].mind;
             ans_avr=s[i].avdis;
             ans=i;
