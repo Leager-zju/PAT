@@ -2,7 +2,6 @@
 #include<vector>
 #include<unordered_map>
 #include<algorithm>
-#include<cmath>
 using namespace std;
 
 struct node{
@@ -10,8 +9,8 @@ struct node{
 }list[100010];
 
 int main(){
-    int head,n,index,i,temp;
-    vector<node> L,del;
+    int head,n,i,index,first=1;
+    vector<node> del;
     unordered_map<int,bool> M;
     
     scanf("%d %d",&head,&n);
@@ -20,22 +19,18 @@ int main(){
         scanf("%d %d",&list[index].data,&list[index].next);
         list[index].address=index;
     }
-    temp=head;
     while(head!=-1){
-        index=list[head].data;
-        index=abs(index);
+        index=abs(list[head].data);
         if(M.find(index)==M.end()){
-            L.push_back(list[head]);
+            if(first){
+                printf("%05d %d ",list[head].address,list[head].data);
+                first=0;
+            }
+            else printf("%05d\n%05d %d ",list[head].address,list[head].address,list[head].data);
             M[index]=true;
         }
-        else{
-            del.push_back(list[head]);
-        }
+        else del.push_back(list[head]);
         head=list[head].next;
-    }
-    printf("%05d %d ",L[0].address,L[0].data);
-    for(i=1;i<L.size();i++){
-        printf("%05d\n%05d %d ",L[i].address,L[i].address,L[i].data);
     }
     printf("-1\n");
     if(del.size()!=0){
