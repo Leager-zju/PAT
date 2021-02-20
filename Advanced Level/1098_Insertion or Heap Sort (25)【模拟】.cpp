@@ -1,4 +1,3 @@
-// 堆排序概念还不是很清楚
 #include<vector>
 #include<iostream>
 #include<algorithm>
