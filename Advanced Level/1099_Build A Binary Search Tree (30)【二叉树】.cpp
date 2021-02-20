@@ -4,8 +4,7 @@
 using namespace std;
 
 struct node{
-    int data;
-    int left,right;
+    int data,left,right;
 }tree[105];
 
 int list[105],now=0;
@@ -26,7 +25,7 @@ int main(){
     for(i=0;i<n;i++){
         cin>>list[i];
     }
-    sort(list,list+i);
+    sort(list,list+n);
     insert(0);
     
     node top;
