@@ -1,3 +1,6 @@
+// 二分查找，对于这种，在一个序列中有连续多个数求和的时候，可以用sum[]来记录从第一个数到第i个数所有数的和
+// 此时 sum[j]-sum[i-1]表示i~j号数之和
+// 由于sum[]为递增序列，则可用二分查找，寻找序列终点
 #include<vector>
 #include<iostream>
 using namespace std;
@@ -5,17 +8,17 @@ using namespace std;
 vector<int> sum,result;
 
 int main(){
-    int n,pay;
+    int n,pay,i,j;
     cin>>n>>pay;
     sum.resize(n+1);
     sum[0]=0;
-    for(int i=1;i<=n;i++){
+    for(i=1;i<=n;i++){
         cin>>sum[i];
         sum[i]+=sum[i-1];
     }
     int minans=sum[n];
-    for(int i=1;i<=n;i++){
-        int j,tempsum=0;
+    for(i=1;i<=n;i++){
+        int tempsum=0;
         int left=i,right=n;
         int mid;
         while(left<right){
@@ -35,7 +38,7 @@ int main(){
             result.push_back(j);
         }
     }
-    for(int i=0;i<result.size();i+=2){
+    for(i=0;i<result.size();i+=2){
         cout<<result[i]<<"-"<<result[i+1]<<endl;
     }
     return 0;
