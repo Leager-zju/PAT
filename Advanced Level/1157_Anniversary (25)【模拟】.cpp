@@ -18,7 +18,6 @@ int main(){
         scanf("%s", &id[0]);
         check[id] = true;
     }
-    ans = id;
     scanf("%d", &m);
     while(m--){
         scanf("%s", &id[0]);
