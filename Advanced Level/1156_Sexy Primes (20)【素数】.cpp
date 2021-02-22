@@ -31,4 +31,5 @@ int main(){
         cout << "No" << endl;
         cout << n;
     }
+    return 0;
 }
