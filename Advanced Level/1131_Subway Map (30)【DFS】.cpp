@@ -1,77 +1,72 @@
+#include<iostream>
 #include<vector>
-#include<cstdio>
+#include<algorithm>
 using namespace std;
 #define maxn 10010
-#define inf 10e7
 
-vector<int> graph[maxn],path,temppath;
-int G[maxn][maxn];
-bool visit[maxn]={false};
+int line[maxn][maxn] = {0};
 int mintran;
+vector<int> temp, path;
+vector<int> G[maxn];
+vector<bool> visit(maxn, false);
 
-void makepath(int start,int end){
-    if(temppath.size()>path.size() && path.size()!=0) return;
-    if(start==end){
-        int count=0;
-        bool transfer[101]={false};
-        for(int i=0;i<temppath.size()-1;i++){
-            if(!transfer[G[temppath[i]][temppath[i+1]]]){
-                transfer[G[temppath[i]][temppath[i+1]]]=true;
-                count++;
-            }
+void DFS(int start, int end){
+    if(path.size() && temp.size() > path.size()) return;
+    if(start == end){
+        int cnt = 0;
+        for(int i = 1; i < temp.size()-1; i++){
+            if(line[temp[i-1]][temp[i]] != line[temp[i]][temp[i+1]]) cnt++;
         }
-        if(path.size()==0 || temppath.size()<path.size() || (temppath.size()==path.size() && mintran>count)){
-            path=temppath;
-            mintran=count;
+        if(path.size() == 0 || temp.size() < path.size() || (temp.size() == path.size() && cnt < mintran)){
+            path = temp;
+            mintran = cnt;
         }
         return;
-    }
-    for(int i=0;i<graph[start].size();i++){
-        int u=graph[start][i];
-        if(!visit[u]){
-            temppath.push_back(u);
-            visit[u]=true;
-            makepath(u,end);
-            visit[u]=false;
-            temppath.pop_back();
-        }
+    } else if(temp.size() == path.size()) return;
+    
+    for(int i = 0; i < G[start].size(); i++){
+        if(visit[G[start][i]]) continue;
+        visit[G[start][i]] = true;
+        temp.push_back(G[start][i]);
+        DFS(G[start][i], end);
+        temp.pop_back();
+        visit[G[start][i]] = false;
     }
 }
 
 int main(){
-    int i,j,n,k,last,next;
-    scanf("%d",&n);
-    for(i=1;i<=n;i++){
-        scanf("%d %d",&k,&last);
-        for(j=1;j<k;j++){
-            scanf("%d",&next);
-            G[last][next]=G[next][last]=i;
-            graph[last].push_back(next);
-            graph[next].push_back(last);
-            last=next;
+    int n, m, i, j, u, v;
+    int q;
+    cin >> n;
+    for(i = 1; i <= n; i++){
+        cin >> m >> u;
+        for(j = 1; j < m; j++){
+            cin >> v;
+            line[u][v] = line[v][u] = i;
+            G[u].push_back(v);
+            G[v].push_back(u);
+            u = v;
         }
     }
-    scanf("%d",&k);
-    while(k--){
-        scanf("%d %d",&last,&next);
-        mintran=inf;
-        temppath.clear();
+    cin >> q;
+    while(q--){
+        cin >> u >> v;
         path.clear();
-        temppath.push_back(last);
-        visit[last]=true;
-        makepath(last,next);
-        visit[last]=false;
-        
-        j=0;
-        int stops=path.size()-1;
-        printf("%d\n",stops);
-        while(j<stops){
-            i=j+1;
-            while(i<stops && G[path[i]][path[i+1]]==G[path[i]][path[i-1]]){
-                i++;
+        temp.push_back(u);
+        visit[u] = true;
+        DFS(u, v);
+        visit[u] = false;
+        temp.pop_back();
+        n = path.size()-1;
+        i = 0;
+        printf("%d\n", n);
+        while(i < n){
+            for(j = i+1; j < n; j++){
+                if(line[path[j-1]][path[j]] != line[path[j]][path[j+1]]) break;   // j是中转站
             }
-            printf("Take Line#%d from %04d to %04d.\n",G[path[i]][path[i-1]],path[j],path[i]);
-            j=i;
+            printf("Take Line#%d from %04d to %04d.\n", line[path[j-1]][path[j]], path[i], path[j]);
+            i = j;
         }
     }
+    return 0;
 }
