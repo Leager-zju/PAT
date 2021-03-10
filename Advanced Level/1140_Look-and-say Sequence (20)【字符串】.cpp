@@ -2,27 +2,29 @@
 #include<iostream>
 using namespace std;
 
-string renew(string s){
+string transform(string s){
+    int i = 0, j;
     string ans;
-    int i,j;
-    for(i=0;i<s.length();i++){
-        for(j=i;j<s.length();j++){
-            if(s[j]!=s[i]) break;
-            count++;
+    while(i < s.length()){
+        int cnt = 0;
+        for(j = i; j < s.length(); j++){
+            if(s[j] == s[i]) cnt++;
+            else break;
         }
-        ans+=s[j-1];
-        ans+=(j-i+'0');
-        i=j-1;
+        ans.push_back(s[i]);
+        ans.push_back(cnt + '0');
+        i = j;
     }
     return ans;
 }
 
 int main(){
-    int count;
-    string s;
-    cin>>s>>count;
-    while(--count){
-        s=renew(s);
+    int n, D;
+    cin >> n >> D;
+    string s = to_string(n);
+    while(--D){
+        s = transform(s);
     }
-    cout<<s;
+    cout << s << endl;
+    return 0;
 }
