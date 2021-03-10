@@ -1,20 +1,26 @@
-#include<cstdio>
-#include<math.h>
+#include<iostream>
+#include<vector>
+using namespace std;
 
 int main(){
-    int n,k,i,j;
-    scanf("%d",&k);
-    while(k--){
-        scanf("%d",&n);
-        int board[n+1],flag=0;
-        for(i=1;i<=n;i++){
-            scanf("%d",&board[i]);
+    int n, m, i, j, flag;
+    cin >> n;
+    while(n--){
+        cin >> m;
+        vector<int> queen(m);
+        flag = 0;
+        for(i = 0; i < m; i++){
+            cin >> queen[i];
             if(flag) continue;
-            for(j=1;j<i;j++){
-                if(i-j==abs(board[i]-board[j]) || board[i]==board[j]) flag=1;
+            for(j = 0; j < i; j++){
+                if(queen[i] == queen[j] || queen[i] - queen[j] == i - j || queen[j] - queen[i] == i - j){
+                    flag = 1;
+                    break;
+                }
             }
         }
-        if(flag) printf("NO\n");
-        else printf("YES\n");
+        if(flag) cout << "NO" << endl;
+        else cout << "YES" << endl;
     }
+    return 0;
 }
