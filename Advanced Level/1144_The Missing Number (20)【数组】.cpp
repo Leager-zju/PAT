@@ -1,17 +1,22 @@
-#include<unordered_map>
-#include<cstdio>
+#include<iostream>
+#include<vector>
 using namespace std;
 
 int main(){
-    int n,num,i,temp=1;
-    unordered_map<int,int> mp;
-    scanf("%d",&n);
-    for(i=0;i<n;i++){
-        scanf("%d",&num);
-        if(num>0) mp[num]=1;
-        while(mp[temp]){
-            temp++;
+    int n, i;
+    cin >> n;
+    vector<int> list(n+1);
+    for(i = 1; i <= n; i++){
+        cin >> list[i];
+    }
+    for(i = 1; i <= n; i++){
+        while(list[i] > 0 && list[i] <= n && list[i] != i && list[i] != list[list[i]]){
+            swap(list[i], list[list[i]]);
         }
     }
-    printf("%d",temp);
+    for(i = 1; i <= n; i++){
+        if(list[i] != i) break;
+    }
+    cout << i;
+    return 0;
 }
